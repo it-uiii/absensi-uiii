@@ -112,11 +112,10 @@
         <!-- Header -->
         <div class="header bg-gradient-primary py-7 py-lg-8">
             <div class="container">
-                <div class="header-body text-center mb-7">
+                <div class="header-body text-center mb-2">
                     <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6">
-                            <h1 class="text-white">Selamat Datang!</h1>
-                            <p class="text-lead text-light">Sistem Absensi Terpadu</p>
+                            <img class="img-fluid" src="{{ asset('logo/logo-uiii.png') }}">
                         </div>
                     </div>
                 </div>
@@ -156,15 +155,6 @@
                 </div>
             </div>
         </div>
-        <footer class="py-5">
-            <div class="container">
-                <div class="copyright text-center">
-                    © {{ date('Y')}} Developed By <a href="https://maulanakevinp.github.io/" class="font-weight-bold ml-1"
-                                target="_lank">Kevin</a> Theme By <a href="https://www.creative-tim.com"
-                                class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-                </div>
-            </div>
-        </footer>
     </div>
     <!--   Core   -->
     <script src="{{ url('argon') }}/assets/js/plugins/jquery/dist/jquery.min.js"></script>
