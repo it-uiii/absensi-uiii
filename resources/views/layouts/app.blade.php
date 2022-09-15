@@ -45,7 +45,7 @@
             </button>
             <!-- Brand -->
             <a class="navbar-brand pt-0" href="{{ route('home') }}">
-                <h1>SIAB</h1>
+                <img class="img-fluid" src="{{ asset('logo/logo-uiii.png') }}">
             </a>
             <!-- User -->
             <ul class="nav align-items-center d-md-none">
@@ -201,7 +201,7 @@
         <!-- End Navbar -->
 
         <!-- Header -->
-        <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+        <div class="header pb-8 pt-5 pt-md-8" style="background-color: #003B5C;">
             <div class="container-fluid">
                 <div class="header-body">
                     <!-- Card stats -->

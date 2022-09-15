@@ -7,6 +7,7 @@
 * Product Page: https://www.creative-tim.com/product/argon-dashboard
 * Copyright 2020 Creative Tim (https://www.creative-tim.com)
 * Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
+* design and programmer = Nur Alief Gagah Wicaksono
 
 * Coded by Creative Tim
 
@@ -38,9 +39,6 @@
     @auth
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
         <div class="container px-4">
-            <a class="navbar-brand" href="{{ route('home') }}">
-                <h1 class="text-white">{{ config('app.name') }}</h1>
-            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -110,7 +108,7 @@
 
     <div class="main-content">
         <!-- Header -->
-        <div class="header bg-gradient-primary py-7 py-lg-8">
+        <div class="header py-7 py-lg-8" style="background-color: #c8c9cc">
             <div class="container">
                 <div class="header-body text-center mb-2">
                     <div class="row justify-content-center">
