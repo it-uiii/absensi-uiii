@@ -70,7 +70,7 @@
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link nav-link-icon">
                                 <i class="ni ni-circle-08"></i>
-                                <span class="nav-link-inner--text">Users</span>
+                                <span class="nav-link-inner--text">Employees</span>
                             </a>
                         </li>
                     @endif

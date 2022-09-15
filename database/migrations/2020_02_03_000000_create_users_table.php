@@ -16,9 +16,17 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('role_id');
-            $table->string('nama', 32);
-            $table->char('nrp', 9)->unique();
-            $table->text('foto');
+            $table->string('nama', 255);
+            $table->char('nrp', 14)->unique()->nullable();
+            $table->string('no_keputusan_pengangkatan')->nullable();
+            $table->string('tgl_pengangkatan')->nullable();
+            $table->string('tgl_masuk', 100)->nullable();
+            $table->string('tgl_lahir', 100)->nullable();
+            $table->string('npwp', 20)->nullable();
+            $table->string('bank', 10)->nullable();
+            $table->string('no_rek', 20)->nullable();
+            $table->text('foto')->nullable();
+            $table->string('jabatan', 191)->nullable();
             $table->string('password');
             $table->timestamps();
 

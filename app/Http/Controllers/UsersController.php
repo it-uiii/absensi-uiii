@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Present;
+use Illuminate\Support\Str;
+use App\Imports\UsersImport;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends Controller
 {
@@ -19,9 +21,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(5);
+        $users = User::paginate(40);
         $rank = $users->firstItem();
-        return view('users.index', compact('users','rank'));
+        return view('users.index', compact('users', 'rank'));
     }
 
     /**
@@ -44,7 +46,7 @@ class UsersController extends Controller
     {
         $user = $request->validate([
             'nama'  => ['required', 'max:32', 'string'],
-            'nrp'   => ['required', 'digits:9','unique:users'],
+            'nrp'   => ['required', 'digits:9', 'unique:users'],
             'role'  => ['required', 'numeric'],
             'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:2048']
         ]);
@@ -58,7 +60,7 @@ class UsersController extends Controller
         }
 
         User::create($user);
-        return redirect('/users')->with('success', 'User berhasil ditambahkan, password = '.$password);
+        return redirect('/users')->with('success', 'User berhasil ditambahkan, password = ' . $password);
     }
 
     /**
@@ -69,17 +71,17 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        $presents = Present::whereUserId($user->id)->whereMonth('tanggal',date('m'))->whereYear('tanggal',date('Y'))->orderBy('tanggal','desc')->paginate(5);
-        $masuk = Present::whereUserId($user->id)->whereMonth('tanggal',date('m'))->whereYear('tanggal',date('Y'))->whereKeterangan('masuk')->count();
-        $telat = Present::whereUserId($user->id)->whereMonth('tanggal',date('m'))->whereYear('tanggal',date('Y'))->whereKeterangan('telat')->count();
-        $cuti = Present::whereUserId($user->id)->whereMonth('tanggal',date('m'))->whereYear('tanggal',date('Y'))->whereKeterangan('cuti')->count();
-        $alpha = Present::whereUserId($user->id)->whereMonth('tanggal',date('m'))->whereYear('tanggal',date('Y'))->whereKeterangan('alpha')->count();
-        $kehadiran = Present::whereUserId($user->id)->whereMonth('tanggal',date('m'))->whereYear('tanggal',date('Y'))->whereKeterangan('telat')->get();
+        $presents = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->orderBy('tanggal', 'desc')->paginate(5);
+        $masuk = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('masuk')->count();
+        $telat = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('telat')->count();
+        $cuti = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('cuti')->count();
+        $alpha = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('alpha')->count();
+        $kehadiran = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('telat')->get();
         $totalJamTelat = 0;
         foreach ($kehadiran as $present) {
             $totalJamTelat = $totalJamTelat + (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse(config('absensi.jam_masuk'))));
         }
-        $url = 'https://kalenderindonesia.com/api/YZ35u6a7sFWN/libur/masehi/'.date('Y/m');
+        $url = 'https://kalenderindonesia.com/api/YZ35u6a7sFWN/libur/masehi/' . date('Y/m');
         $kalender = file_get_contents($url);
         $kalender = json_decode($kalender, true);
         $libur = false;
@@ -95,7 +97,7 @@ class UsersController extends Controller
                 }
             }
         }
-        return view('users.show',compact('user','presents','libur','masuk','telat','cuti','alpha','totalJamTelat'));
+        return view('users.show', compact('user', 'presents', 'libur', 'masuk', 'telat', 'cuti', 'alpha', 'totalJamTelat'));
     }
 
     /**
@@ -106,7 +108,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit',compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -120,14 +122,14 @@ class UsersController extends Controller
     {
         $data = $request->validate([
             'nama'  => ['required', 'max:32', 'string'],
-            'nrp'   => ['required', 'digits:9',Rule::unique('users','nrp')->ignore($user)],
+            'nrp'   => ['required', 'digits:9', Rule::unique('users', 'nrp')->ignore($user)],
             'role'  => ['required', 'numeric'],
             'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:2048']
         ]);
         $data['role_id'] = $request->role;
         if ($request->file('foto')) {
             if ($user->foto != 'default.jpg') {
-                File::delete(public_path('storage'.'/'.$user->foto));
+                File::delete(public_path('storage' . '/' . $user->foto));
             }
             $data['foto'] = $request->file('foto')->store('foto-profil');
         }
@@ -145,10 +147,10 @@ class UsersController extends Controller
     {
         $nama = $user->nama;
         if ($user->foto != 'default.jpg') {
-            File::delete(public_path('storage'.'/'.$user->foto));
+            File::delete(public_path('storage' . '/' . $user->foto));
         }
         User::destroy($user->id);
-        return redirect('/users')->with('success','User "'.$user->nama.'" berhasil dihapus');
+        return redirect('/users')->with('success', 'User "' . $user->nama . '" berhasil dihapus');
     }
 
     /**
@@ -177,14 +179,14 @@ class UsersController extends Controller
 
         if (Hash::check($request->password, $user->password)) {
             if ($request->password == $request->konfirmasi_password) {
-                return redirect()->back()->with('error','Password gagal diperbarui, tidak ada yang berubah pada kata sandi');
+                return redirect()->back()->with('error', 'Password gagal diperbarui, tidak ada yang berubah pada kata sandi');
             } else {
                 $user->password = Hash::make($request->konfirmasi_password);
                 $user->save();
-                return redirect()->back()->with('success','Password berhasil diperbarui');
+                return redirect()->back()->with('success', 'Password berhasil diperbarui');
             }
         } else {
-            return redirect()->back()->with('error','Password tidak cocok dengan kata sandi lama');
+            return redirect()->back()->with('error', 'Password tidak cocok dengan kata sandi lama');
         }
     }
 
@@ -214,12 +216,12 @@ class UsersController extends Controller
         $user->nama = $request->nama;
         if ($request->file('foto')) {
             if ($user->foto != 'default.jpg') {
-                File::delete(public_path('storage'.'/'.$user->foto));
+                File::delete(public_path('storage' . '/' . $user->foto));
             }
             $user->foto = $request->file('foto')->store('foto-profil');
         }
         $user->save();
-        return redirect()->back()->with('success','Profil berhasil di perbarui');
+        return redirect()->back()->with('success', 'Profil berhasil di perbarui');
     }
 
     public function search(Request $request)
@@ -227,18 +229,29 @@ class UsersController extends Controller
         $request->validate([
             'cari' => ['required']
         ]);
-        $users = User::where('nama','like','%'.$request->cari.'%')
-                    ->orWhere('nrp','like','%'.$request->cari.'%')
-                    ->paginate(6);
+        $users = User::where('nama', 'like', '%' . $request->cari . '%')
+            ->orWhere('nrp', 'like', '%' . $request->cari . '%')
+            ->paginate(6);
         return view('users.index', compact('users'));
     }
 
     public function password(Request $request, User $user)
     {
-        $password = Str::random(10);
+        $password = Hash::make('123456789');
         $user->password = Hash::make($password);
         $user->save();
 
-        return redirect()->back()->with('success','Password berhasil direset, Password = '.$password);
+        return redirect()->back()->with('success', 'Password berhasil direset, Password = ' . $password);
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('PegawaiData', $namafile);
+
+        Excel::import(new UsersImport, \public_path('/PegawaiData/' . $namafile));
+
+        return redirect('/')->with('success', 'import successfully');
     }
 }

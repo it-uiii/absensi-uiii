@@ -25,15 +25,16 @@
                 @if($present->jam_keluar)
                     <td>{{ date('H:i:s', strtotime($present->jam_keluar)) }}</td>
                     <td>
-                        @if (strtotime($present->jam_keluar) <= strtotime($present->jam_masuk))
+                        {{-- @if (strtotime($present->jam_keluar) <= strtotime($present->jam_masuk))
                             {{ 21 - (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) }}
                         @else
                             @if (strtotime($present->jam_keluar) >= strtotime(config('absensi.jam_pulang') . ' +2 hours'))
                                 {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 3 }}
                             @else
-                                {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
+                                
                             @endif
-                        @endif
+                        @endif --}}
+                        {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInMinutes(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
                     </td>
                 @else
                     <td>-</td>

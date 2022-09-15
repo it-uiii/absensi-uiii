@@ -88,6 +88,10 @@ Kehadiran - {{ config('app.name') }}
                     <input type="hidden" name="tanggal" value="{{ request('tanggal', date('Y-m-d')) }}">
                     <button class="btn btn-sm btn-primary" type="submit" title="Download"><i class="fas fa-download"></i></button>
                 </form>
+                <form class="float-right" action="{{ route('kehadiran.excel-users-month') }}" method="get">
+                    <input type="hidden" name="tanggal" value="{{ request('tanggal', date('Y-m-d')) }}">
+                    <button class="btn btn-sm btn-primary" type="submit" title="Download"><i class="fas fa-download"></i></button>
+                </form>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -143,7 +147,7 @@ Kehadiran - {{ config('app.name') }}
                                         @if($present->jam_keluar)
                                             <td>{{ date('H:i:s', strtotime($present->jam_keluar)) }}</td>
                                             <td>
-                                                @if (strtotime($present->jam_keluar) <= strtotime($present->jam_masuk))
+                                                {{-- @if (strtotime($present->jam_keluar) <= strtotime($present->jam_masuk))
                                                     {{ 21 - (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) }}
                                                 @else
                                                     @if (strtotime($present->jam_keluar) >= strtotime(config('absensi.jam_pulang') . ' +2 hours'))
@@ -151,7 +155,8 @@ Kehadiran - {{ config('app.name') }}
                                                     @else
                                                         {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
                                                     @endif
-                                                @endif
+                                                @endif --}}
+                                                {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInMinutes(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
                                             </td>
                                         @else
                                             <td>-</td>

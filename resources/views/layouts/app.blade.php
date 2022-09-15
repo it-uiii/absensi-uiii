@@ -110,7 +110,7 @@
                             <li class="nav-item">
                             <a class="nav-link" href="{{ route('users.index') }}">
                         @endif
-                                <i class="ni ni-circle-08 text-primary"></i> Users
+                                <i class="ni ni-circle-08 text-primary"></i> Employees
                             </a>
                         </li>
                     @else
@@ -228,23 +228,15 @@
         </div>
         <div class="container-fluid mt--7">
             @yield('content')
-            <!-- Footer -->
-            <footer class="footer">
-                <div class="row align-items-center justify-content-xl-between">
-                    <div class="col-xl-6">
-                        <div class="copyright text-center text-xl-left text-muted">
-                            © {{ date('Y')}} Developed By <a href="https://maulanakevinp.github.io/" class="font-weight-bold ml-1"
-                                target="_lank">Kevin</a> Theme By <a href="https://www.creative-tim.com"
-                                class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
     <!--   Core   -->
     <script src="{{ url('argon') }}/assets/js/plugins/jquery/dist/jquery.min.js"></script>
     <script src="{{ url('argon') }}/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
     <!--   Optional JS   -->
     @stack('scripts')
