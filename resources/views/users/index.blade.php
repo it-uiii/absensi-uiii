@@ -64,7 +64,7 @@ Employees Management - {{ config('app.name') }}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        {{-- @foreach ($users as $user)
                             <tr>
                                 <th>{{ $rank++ }}</th>
                                 <td>
@@ -81,7 +81,29 @@ Employees Management - {{ config('app.name') }}
                                     <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-info" title="Detail User"><i class="fas fa-eye"></i></a>
                                 </td>
                             </tr>
-                        @endforeach 
+                        @endforeach  --}}
+                        @if (!$users->count())
+                                <tr>
+                                    <td colspan="5" class="text-center">Tidak ada data yang tersedia</td>
+                                </tr>
+                            @else
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <th>{{ $rank++ }}</th>
+                                        <td>@if (empty($user->nrp))
+                                                nrp not available
+                                            @else
+                                                {{ $user->nrp }}
+                                            @endif</td>
+                                        <td>{{ $user->nama }}</td>
+                                        <td>{{ $user->jabatan }}</td>
+                                        <td>{{ $user->role->role }}</td>
+                                        <td>
+                                            <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-info" title="Detail User"><i class="fas fa-eye"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                     </tbody>
                 </table>                    
             </div>
