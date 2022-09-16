@@ -45,6 +45,12 @@
                                     @csrf @method('patch')
                                     <button class="btn btn-primary" type="submit">Check-out</button>
                                 </form>
+                            @elseif ((\Carbon\Carbon::parse($present->jam_masuk)->diffInMinutes(\Carbon\Carbon::parse(date('H:i:s')))) >= 1)
+                                <p>Jika pekerjaan telah selesai silahkan check-out</p>
+                                <form action="{{ route('kehadiran.check-out', ['kehadiran' => $present]) }}" method="post">
+                                    @csrf @method('patch')
+                                    <button class="btn btn-primary" type="submit">Check-out</button>
+                                </form>
                             @else
                                 <p>Check-out Belum Tersedia</p>
                             @endif

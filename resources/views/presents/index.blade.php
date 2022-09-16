@@ -152,7 +152,7 @@ Kehadiran - {{ config('app.name') }}
                                                         {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
                                                     @endif
                                                 @endif --}}
-                                                {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInMinutes(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
+                                                {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInMinutes(\Carbon\Carbon::parse($present->jam_keluar))) / 60 - 1}}
                                             </td>
                                         @else
                                             <td>-</td>
