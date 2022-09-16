@@ -18,7 +18,7 @@ class PresentsController extends Controller
      */
     public function index()
     {
-        $presents = Present::whereTanggal(date('Y-m-d'))->orderBy('jam_masuk', 'desc')->paginate(6);
+        $presents = Present::whereTanggal(date('Y-m-d'))->orderBy('jam_masuk', 'desc')->paginate(20);
         $masuk = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('masuk')->count();
         $telat = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('telat')->count();
         $cuti = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('cuti')->count();
@@ -235,11 +235,6 @@ class PresentsController extends Controller
     }
 
     public function excelUsers(Request $request)
-    {
-        return Excel::download(new UsersPresentExport($request->tanggal), 'kehadiran-' . $request->tanggal . '.xlsx');
-    }
-
-    public function excelUsersMontly(Request $request)
     {
         return Excel::download(new UsersPresentExport($request->tanggal), 'kehadiran-' . $request->tanggal . '.xlsx');
     }

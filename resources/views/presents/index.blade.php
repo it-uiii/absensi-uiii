@@ -88,10 +88,6 @@ Kehadiran - {{ config('app.name') }}
                     <input type="hidden" name="tanggal" value="{{ request('tanggal', date('Y-m-d')) }}">
                     <button class="btn btn-sm btn-primary" type="submit" title="Download"><i class="fas fa-download"></i></button>
                 </form>
-                <form class="float-right" action="{{ route('kehadiran.excel-users-month') }}" method="get">
-                    <input type="hidden" name="tanggal" value="{{ request('tanggal', date('Y-m-d')) }}">
-                    <button class="btn btn-sm btn-primary" type="submit" title="Download"><i class="fas fa-download"></i></button>
-                </form>
             </div>
             <div class="card-body">
                 <div class="row">

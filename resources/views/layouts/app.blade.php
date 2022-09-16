@@ -110,7 +110,7 @@
                             <li class="nav-item">
                             <a class="nav-link" href="{{ route('users.index') }}">
                         @endif
-                                <i class="ni ni-circle-08 text-primary"></i> Users
+                                <i class="ni ni-circle-08 text-primary"></i> Employees
                             </a>
                         </li>
                     @else
