@@ -110,9 +110,9 @@
         <!-- Header -->
         <div class="header py-7 py-lg-8" style="background-color: #c8c9cc">
             <div class="container">
-                <div class="header-body text-center mb-2">
+                <div class="header-body text-center">
                     <div class="row justify-content-center">
-                        <div class="col-lg-5 col-md-6">
+                        <div class="col-md-6 mb-5">
                             <img class="img-fluid" src="{{ asset('logo/logo-uiii.png') }}">
                         </div>
                     </div>

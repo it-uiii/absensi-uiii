@@ -254,6 +254,6 @@ class UsersController extends Controller
 
         Excel::import(new UsersImport, \public_path('/PegawaiData/' . $namafile));
 
-        return redirect('/')->with('success', 'import successfully');
+        return redirect('/users')->with('success', 'import successfully');
     }
 }
