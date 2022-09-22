@@ -113,6 +113,16 @@
                                 <i class="ni ni-circle-08 text-primary"></i> Employees
                             </a>
                         </li>
+                        @if (Request::segment(1) == 'users')
+                            <li class="nav-item active">
+                            <a class="nav-link active" href="{{ route('kehadiran.reports') }}">
+                        @else
+                            <li class="nav-item">
+                            <a class="nav-link" href="{{ route('kehadiran.reports') }}">
+                        @endif
+                                <i class="ni ni-single-copy-04 text-success"></i> Laporan
+                            </a>
+                        </li>
                     @else
                         @if (Request::segment(1) == 'daftar-hadir')
                             <li class="nav-item active">
@@ -144,7 +154,7 @@
                         <li class="nav-item">
                         <a class="nav-link" href="{{ route('ganti-password') }}">
                     @endif
-                            <i class="ni ni-key-25 text-green"></i> Ganti Password
+                            <i class="ni ni-key-25 text-red"></i> Ganti Password
                         </a>
                     </li>
                 </ul>

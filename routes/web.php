@@ -37,6 +37,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::post('/import', 'UsersController@import')->name('import');
 
         Route::get('/kehadiran', 'PresentsController@index')->name('kehadiran.index');
+        Route::get('/laporan', 'PresentsController@reports')->name('kehadiran.reports');
         Route::get('/kehadiran/cari', 'PresentsController@search')->name('kehadiran.search');
         Route::get('/kehadiran/{user}/cari', 'PresentsController@cari')->name('kehadiran.cari');
         Route::get('/kehadiran/excel-users', 'PresentsController@excelUsers')->name('kehadiran.excel-users');

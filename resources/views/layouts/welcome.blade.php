@@ -71,6 +71,12 @@
                                 <span class="nav-link-inner--text">Employees</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('kehadiran.reports') }}" class="nav-link nav-link-icon">
+                                <i class="ni ni-single-copy-04"></i>
+                                <span class="nav-link-inner--text">Reports</span>
+                            </a>
+                        </li>
                     @endif
                     <li class="nav-item">
                         @if (auth()->user()->role->role == "Admin")

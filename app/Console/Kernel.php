@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Present;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,8 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(function () {
+            Present::where('keterangan', 'Masuk')->whereNull('jam_keluar')->update(['jam_keluar' => '16:00:00']);
+        })->dailyAt('19:10');
     }
 
     /**
@@ -35,7 +38,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

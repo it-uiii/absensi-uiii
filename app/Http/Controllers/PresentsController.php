@@ -27,6 +27,13 @@ class PresentsController extends Controller
         return view('presents.index', compact('presents', 'rank', 'masuk', 'telat', 'cuti', 'alpha'));
     }
 
+    public function reports()
+    {
+        $presents = Present::whereTanggal(date('Y-m-d'))->orderBy('jam_masuk', 'desc')->paginate(20);
+        $rank = $presents->firstItem();
+        return view('presents.reports', compact('presents', 'rank'));
+    }
+
     public function search(Request $request)
     {
         $request->validate([

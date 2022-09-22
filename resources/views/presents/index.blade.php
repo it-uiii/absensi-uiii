@@ -84,10 +84,6 @@ Kehadiran - {{ config('app.name') }}
         <div class="card shadow h-100">
             <div class="card-header">
                 <h5 class="m-0 pt-1 font-weight-bold float-left">Kehadiran</h5>
-                <form class="float-right" action="{{ route('kehadiran.excel-users') }}" method="get">
-                    <input type="hidden" name="tanggal" value="{{ request('tanggal', date('Y-m-d')) }}">
-                    <button class="btn btn-sm btn-primary" type="submit" title="Download"><i class="fas fa-download"></i></button>
-                </form>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -152,7 +148,14 @@ Kehadiran - {{ config('app.name') }}
                                                         {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
                                                     @endif
                                                 @endif --}}
-                                                {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1}}
+                                                
+                                                <?php 
+                                                    $total_temp = (\Carbon\Carbon::parse($present->jam_masuk)->floatDiffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1;
+                                                    $total_jam = number_format($total_temp,2);
+
+                                                    echo $total_jam;
+                                                ?>
+                                                
                                             </td>
                                         @else
                                             <td>-</td>
