@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Present;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,7 +29,11 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             Present::where('keterangan', 'Masuk')->whereNull('jam_keluar')->update(['jam_keluar' => '16:30:00']);
-        })->dailyAt('21.43');
+        })->dailyAt('18.10');
+
+        $schedule->call(function () {
+            Artisan::call('cache:clear'); // you can move this part to Job
+        })->everyMinute();
     }
 
     /**
