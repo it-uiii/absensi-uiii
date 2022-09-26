@@ -116,7 +116,7 @@ Kehadiran - {{ config('app.name') }}
                                 <th>Keterangan</th>
                                 <th>Jam Masuk</th>
                                 <th>Jam Keluar</th>
-                                <th>Total Jam</th>
+                                {{-- <th>Total Jam</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -150,10 +150,10 @@ Kehadiran - {{ config('app.name') }}
                                                 @endif --}}
                                                 
                                                 <?php 
-                                                    $total_temp = (\Carbon\Carbon::parse($present->jam_masuk)->floatDiffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1;
-                                                    $total_jam = number_format($total_temp,2);
+                                                    //$total_temp = (\Carbon\Carbon::parse($present->jam_masuk)->floatDiffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1;
+                                                    //$total_jam = number_format($total_temp,2);
 
-                                                    echo $total_jam;
+                                                    //echo $total_jam;
                                                 ?>
                                                 
                                             </td>
