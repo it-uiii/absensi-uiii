@@ -159,7 +159,7 @@ Kehadiran - {{ config('app.name') }}
                                             </td>
                                         @else
                                             <td>-</td>
-                                            <td>-</td>
+                                            {{-- <td>-</td> --}}
                                         @endif
                                     </tr>
                                 @endforeach
