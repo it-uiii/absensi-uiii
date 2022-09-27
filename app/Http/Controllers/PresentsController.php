@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Present;
 use App\User;
 use App\Exports\PresentExport;
+use App\Exports\ReportExport;
 use App\Exports\UsersPresentExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -29,9 +30,17 @@ class PresentsController extends Controller
 
     public function reports()
     {
-        $presents = Present::whereTanggal(date('Y-m-d'))->orderBy('jam_masuk', 'desc')->paginate(20);
-        $rank = $presents->firstItem();
-        return view('presents.reports', compact('presents', 'rank'));
+        $presents = Present::whereBetween('tanggal', [request('tanggal_awal', date('Y-m-d',strtotime('-1 months'))), request('tanggal_akhir', date('Y-m-d',strtotime('now')))])
+            ->orderBy('tanggal')
+            ->orderBy('jam_masuk')
+            ->get()->groupBy('tanggal');
+        $users = User::all();
+        return view('presents.reports', compact('presents','users'));
+    }
+
+    public function reports_excel(Request $request)
+    {
+        return Excel::download(new ReportExport, 'kehadiran-' . $request->tanggal_awal . ' - '. $request->tanggal_akhir .'.xlsx');
     }
 
     public function search(Request $request)

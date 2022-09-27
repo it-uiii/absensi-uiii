@@ -38,6 +38,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
         Route::get('/kehadiran', 'PresentsController@index')->name('kehadiran.index');
         Route::get('/laporan', 'PresentsController@reports')->name('kehadiran.reports');
+        Route::get('/laporan-excel', 'PresentsController@reports_excel')->name('kehadiran.reports-excel');
         Route::get('/kehadiran/cari', 'PresentsController@search')->name('kehadiran.search');
         Route::get('/kehadiran/{user}/cari', 'PresentsController@cari')->name('kehadiran.cari');
         Route::get('/kehadiran/excel-users', 'PresentsController@excelUsers')->name('kehadiran.excel-users');
