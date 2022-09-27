@@ -26,4 +26,13 @@ class Present extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function getJamKerjaAttribute()
+    {
+        $jam_masuk = strtotime($this->jam_masuk);
+        $jam_keluar = strtotime($this->jam_keluar);
+        $jam_kerja = $jam_keluar - $jam_masuk;
+        $jam = floor($jam_kerja / 3600);
+        return $jam;
+    }
 }

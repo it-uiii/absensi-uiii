@@ -8,7 +8,6 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class UsersPresentExport implements FromView
 {
-
     private $tanggal;
 
     public function __construct($tanggal)
