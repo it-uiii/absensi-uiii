@@ -13,7 +13,7 @@ Laporan - {{ config('app.name') }}
                 <h5 class="m-0 pt-1 font-weight-bold float-left">Rekap Kehadiran</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('kehadiran.reports-excel') }}" method="get">
+                <form>
                     <div class="row">
                         <div class="col-sm mb-1">
                             <div class="form-group row">
