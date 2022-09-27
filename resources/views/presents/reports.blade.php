@@ -73,9 +73,10 @@ Laporan - {{ config('app.name') }}
                                         @if ($present->where('user_id', $user->id))
                                             <td>{{ $present->where('user_id', $user->id)->first()->keterangan }}</td>
                                             @php
+                                                $keterangan = $present->where('user_id', $user->id)->first()->keterangan;
                                                 $total_jam_kerja += $present->where('user_id', $user->id)->first()->jam_kerja;
-                                                $total_kehadiran += $present->where('user_id', $user->id)->first()->keterangan == 'Masuk' ? 1 : 0;
-                                                $uang_makan_harian_yang_diterima += $present->where('user_id', $user->id)->first()->keterangan == 'Masuk' ? $uang_makan_per_hari : 0;
+                                                $total_kehadiran += $keterangan == 'Masuk' || $keterangan == 'Telat' ? 1 : 0;
+                                                $uang_makan_harian_yang_diterima += $keterangan == 'Masuk' || $keterangan == 'Telat' ? $uang_makan_per_hari : 0;
                                             @endphp
                                         @endif
                                     @endforeach
