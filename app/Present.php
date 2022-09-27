@@ -29,10 +29,13 @@ class Present extends Model
 
     public function getJamKerjaAttribute()
     {
-        $jam_masuk = strtotime($this->jam_masuk);
-        $jam_keluar = strtotime($this->jam_keluar);
-        $jam_kerja = $jam_keluar - $jam_masuk;
-        $jam = floor($jam_kerja / 3600);
+        $jam = 0;
+        if ($this->keterangan == 'Masuk' || $this->keterangan == 'Telat') {
+            $jam_masuk = strtotime($this->jam_masuk);
+            $jam_keluar = strtotime($this->jam_keluar);
+            $jam_kerja = $jam_keluar - $jam_masuk;
+            $jam = floor($jam_kerja / 3600);
+        }
         return $jam;
     }
 }
