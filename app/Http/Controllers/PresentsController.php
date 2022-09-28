@@ -17,7 +17,7 @@ class PresentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $presents = Present::whereTanggal(date('Y-m-d'))->orderBy('jam_masuk', 'desc')->paginate(20);
         $masuk = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('masuk')->count();
@@ -25,6 +25,7 @@ class PresentsController extends Controller
         $cuti = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('cuti')->count();
         $alpha = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('alpha')->count();
         $rank = $presents->firstItem();
+        $presents->appends($request->only('tanggal'));
         return view('presents.index', compact('presents', 'rank', 'masuk', 'telat', 'cuti', 'alpha'));
     }
 
@@ -54,6 +55,7 @@ class PresentsController extends Controller
         $cuti = Present::whereTanggal($request->tanggal)->whereKeterangan('cuti')->count();
         $alpha = Present::whereTanggal($request->tanggal)->whereKeterangan('alpha')->count();
         $rank = $presents->firstItem();
+        $presents->appends($request->only('tanggal'));
         return view('presents.index', compact('presents', 'rank', 'masuk', 'telat', 'cuti', 'alpha'));
     }
 

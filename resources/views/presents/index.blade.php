@@ -102,7 +102,7 @@ Kehadiran - {{ config('app.name') }}
                     </div>
                     <div class="col-lg-6">
                         <div class="float-right">
-                            {{ $presents->links() }}
+                            {{ $presents->links('layouts.pagination') }}
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@ Kehadiran - {{ config('app.name') }}
                                 <th>Keterangan</th>
                                 <th>Jam Masuk</th>
                                 <th>Jam Keluar</th>
-                                {{-- <th>Total Jam</th> --}}
+                                <th>Total Jam</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -135,31 +135,13 @@ Kehadiran - {{ config('app.name') }}
                                             <td>{{ date('H:i:s', strtotime($present->jam_masuk)) }}</td>
                                         @else
                                             <td>-</td>
-                                        @endif  
+                                        @endif
                                         @if($present->jam_keluar)
                                             <td>{{ date('H:i:s', strtotime($present->jam_keluar)) }}</td>
-                                            <td>
-                                                {{-- @if (strtotime($present->jam_keluar) <= strtotime($present->jam_masuk))
-                                                    {{ 21 - (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) }}
-                                                @else
-                                                    @if (strtotime($present->jam_keluar) >= strtotime(config('absensi.jam_pulang') . ' +2 hours'))
-                                                        {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 3 }}
-                                                    @else
-                                                        {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
-                                                    @endif
-                                                @endif --}}
-                                                
-                                                <?php 
-                                                    //$total_temp = (\Carbon\Carbon::parse($present->jam_masuk)->floatDiffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1;
-                                                    //$total_jam = number_format($total_temp,2);
-
-                                                    //echo $total_jam;
-                                                ?>
-                                                
-                                            </td>
+                                            <td>{{ $present->jam_kerja }}</td>
                                         @else
                                             <td>-</td>
-                                            {{-- <td>-</td> --}}
+                                            <td>-</td>
                                         @endif
                                     </tr>
                                 @endforeach
