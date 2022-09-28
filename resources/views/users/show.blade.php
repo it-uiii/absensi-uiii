@@ -211,7 +211,7 @@ Detail User - {{ config('app.name') }}
                                 </tbody>
                             </table>
                             <div class="float-right">
-                                {{ $presents->links() }}
+                                {{ $presents->links('layouts.pagination') }}
                             </div>
                         </div>
                     </div>
@@ -244,6 +244,10 @@ Detail User - {{ config('app.name') }}
                                     <option value="Telat" {{ old('keterangan') == 'Telat' ? 'selected':'' }}>Telat</option>
                                     <option value="Sakit" {{ old('keterangan') == 'Sakit' ? 'selected':'' }}>Sakit</option>
                                     <option value="Cuti" {{ old('keterangan') == 'Cuti' ? 'selected':'' }}>Cuti</option>
+                                    <option value="Work From Home" {{ old('keterangan') == 'Work From Home' ? 'selected':'' }}>Work From Home</option>
+                                    <option value="Full Board" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Full Day" {{ old('keterangan') == 'Full Day' ? 'selected':'' }}>Full Day</option>
+                                    <option value="Izin" {{ old('keterangan') == 'Izin' ? 'selected':'' }}>Izin</option>
                                 </select>
                                 @error('keterangan') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
                             </div>
@@ -289,6 +293,10 @@ Detail User - {{ config('app.name') }}
                                     <option value="Telat" {{ old('keterangan') == 'Telat' ? 'selected':'' }}>Telat</option>
                                     <option value="Sakit" {{ old('keterangan') == 'Sakit' ? 'selected':'' }}>Sakit</option>
                                     <option value="Cuti" {{ old('keterangan') == 'Cuti' ? 'selected':'' }}>Cuti</option>
+                                    <option value="Work From Home" {{ old('keterangan') == 'Work From Home' ? 'selected':'' }}>Work From Home</option>
+                                    <option value="Full Board" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Full Day" {{ old('keterangan') == 'Full Day' ? 'selected':'' }}>Full Day</option>
+                                    <option value="Izin" {{ old('keterangan') == 'Izin' ? 'selected':'' }}>Izin</option>
                                 </select>
                                 @error('keterangan') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
                             </div>

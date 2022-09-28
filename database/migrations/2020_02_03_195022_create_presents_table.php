@@ -16,7 +16,7 @@ class CreatePresentsTable extends Migration
         Schema::create('presents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->enum('keterangan', ['Masuk', 'Alpha', 'Telat', 'Sakit', 'Cuti', 'Perjadin', 'Fullboard', 'Izin']);
+            $table->enum('keterangan', ['Masuk', 'Alpha', 'Telat', 'Sakit', 'Cuti', 'Work From Home', 'Dinas Luar (Perjadin)', 'Full Board', 'Full Day', 'Izin']);
             $table->date('tanggal');
             $table->time('jam_masuk')->nullable();
             $table->time('jam_keluar')->nullable();

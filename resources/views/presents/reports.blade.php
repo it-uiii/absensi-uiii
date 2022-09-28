@@ -71,7 +71,7 @@ Laporan - {{ config('app.name') }}
                                     <td>{{ $user->role->role }}</td>
                                     @foreach ($presents as $key => $present)
                                         @if ($present->where('user_id', $user->id))
-                                            <td>{{ $present->where('user_id', $user->id)->first()->keterangan }}</td>
+                                            <td class="text-center">{{ $present->where('user_id', $user->id)->first()->ket }}</td>
                                             @php
                                                 $keterangan = $present->where('user_id', $user->id)->first()->keterangan;
                                                 $total_jam_kerja += $present->where('user_id', $user->id)->first()->jam_kerja;
@@ -89,6 +89,49 @@ Laporan - {{ config('app.name') }}
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+
+        <div class="card my-3">
+            <div class="card-body">
+                <h3>Keterangan</h4>
+                <table>
+                    <tr>
+                        <td>1</td>
+                        <td width="5px">:</td>
+                        <td>Masuk / Telat</td>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td width="5px">:</td>
+                        <td>Sakit</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td width="5px">:</td>
+                        <td>Cuti</td>
+                    </tr>
+                    <tr>
+                        <td>DL</td>
+                        <td width="5px">:</td>
+                        <td>Perjadin</td>
+                    </tr>
+                    <tr>
+                        <td>FB</td>
+                        <td width="5px">:</td>
+                        <td>Fullboard</td>
+                    </tr>
+                    <tr>
+                        <td>I</td>
+                        <td width="5px">:</td>
+                        <td>Izin</td>
+                    </tr>
+                    <tr>
+                        <td>A</td>
+                        <td width="5px">:</td>
+                        <td>Alpha</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

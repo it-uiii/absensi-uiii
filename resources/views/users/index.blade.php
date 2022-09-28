@@ -55,7 +55,7 @@ Employees Management - {{ config('app.name') }}
                 </div>
                 <div class="col-lg-6">
                     <div class="float-right">
-                        {{ $users->links() }}
+                        {{ $users->links('layouts.pagination') }}
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@ Employees Management - {{ config('app.name') }}
                                 @endforeach
                             @endif
                     </tbody>
-                </table>                    
+                </table>
             </div>
         </div>
     </div>

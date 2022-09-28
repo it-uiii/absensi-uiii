@@ -40,4 +40,43 @@ class Present extends Model
         }
         return $jam;
     }
+
+    public function getKetAttribute()
+    {
+        $ket = '';
+        switch ($this->keterangan) {
+            case 'Masuk':
+                $ket = '1';
+                break;
+            case 'Telat':
+                $ket = '1';
+                break;
+            case 'Sakit':
+                $ket = 'S';
+                break;
+            case 'Cuti':
+                $ket = 'C';
+                break;
+            case 'Work From Home':
+                $ket = 'WFH';
+                break;
+            case 'Dinas Luar (Perjadin)':
+                $ket = 'DL';
+                break;
+            case 'Full Board':
+                $ket = 'FB';
+                break;
+            case 'Full Day':
+                $ket = 'FD';
+                break;
+            case 'Izin':
+                $ket = 'I';
+                break;
+            default:
+                $ket = 'A';
+                break;
+        }
+
+        return $ket;
+    }
 }
