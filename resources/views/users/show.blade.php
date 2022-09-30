@@ -106,6 +106,7 @@ Detail User - {{ config('app.name') }}
                                 <tbody>
                                     <tr><td>NRP</td><td>: {{ $user->nrp }}</td></tr>
                                     <tr><td>Nama</td><td>: {{ $user->nama }}</td></tr>
+                                    <tr><td>Jabatan</td><td>: {{ $user->jabatan }}</td></tr>
                                     <tr><td>Sebagai</td><td>: {{ $user->role->role }}</td></tr>
                                 </tbody>
                             </table>

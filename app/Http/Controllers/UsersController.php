@@ -46,10 +46,13 @@ class UsersController extends Controller
     {
         $user = $request->validate([
             'nama'  => ['required', 'max:32', 'string'],
-            'nrp'   => ['required', 'digits:9', 'unique:users'],
+            'nrp'   => ['required', 'digits:14', 'unique:users'],
             'role'  => ['required', 'numeric'],
+            'jabatan' => ['required'],
             'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:2048']
         ]);
+
+        // dd($user);
         $password = Str::random(10);
         $user['role_id'] = $request->role;
         $user['password'] = Hash::make($password);
@@ -58,7 +61,7 @@ class UsersController extends Controller
         } else {
             $user['foto'] = 'default.jpg';
         }
-
+        // dd($user);
         User::create($user);
         return redirect('/users')->with('success', 'User berhasil ditambahkan, password = ' . $password);
     }
@@ -122,8 +125,9 @@ class UsersController extends Controller
     {
         $data = $request->validate([
             'nama'  => ['required', 'max:32', 'string'],
-            'nrp'   => ['required', 'digits:9', Rule::unique('users', 'nrp')->ignore($user)],
+            'nrp'   => ['required', 'digits:14', Rule::unique('users', 'nrp')->ignore($user)],
             'role'  => ['required', 'numeric'],
+            'jabatan' => ['required'],
             'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:2048']
         ]);
         $data['role_id'] = $request->role;
@@ -239,7 +243,7 @@ class UsersController extends Controller
 
     public function password(Request $request, User $user)
     {
-        $password = Hash::make('123456789');
+        $password = '123456789';
         $user->password = Hash::make($password);
         $user->save();
 
