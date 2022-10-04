@@ -49,7 +49,7 @@ class UsersController extends Controller
             'nrp'   => ['required', 'digits:14', 'unique:users'],
             'role'  => ['required', 'numeric'],
             'jabatan' => ['required'],
-            'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:2048']
+            'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:5048']
         ]);
 
         // dd($user);
@@ -128,7 +128,7 @@ class UsersController extends Controller
             'nrp'   => ['required', 'digits:14', Rule::unique('users', 'nrp')->ignore($user)],
             'role'  => ['required', 'numeric'],
             'jabatan' => ['required'],
-            'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:2048']
+            'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:5048']
         ]);
         $data['role_id'] = $request->role;
         if ($request->file('foto')) {
@@ -215,7 +215,7 @@ class UsersController extends Controller
     {
         $request->validate([
             'nama' => ['required', 'max:32'],
-            'foto' => ['image', 'mimes:jpeg,png,gif', 'max:2048']
+            'foto' => ['image', 'mimes:jpeg,png,gif', 'max:5048']
         ]);
         $user->nama = $request->nama;
         if ($request->file('foto')) {
