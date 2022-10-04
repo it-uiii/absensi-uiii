@@ -16,7 +16,7 @@
             @if ($present)
                 @if ($present->keterangan == 'Alpha')
                     <div class="text-center">
-                        @if (strtotime(date('H:i:s')) >= strtotime(config('absensi.jam_masuk') .' -1 hours') && strtotime(date('H:i:s')) <= strtotime(config('absensi.jam_pulang')))
+                        @if (strtotime(date('H:i:s')) >= strtotime(config('absensi.jam_masuk') .' -2 hours') && strtotime(date('H:i:s')) <= strtotime(config('absensi.jam_pulang')))
                             <p>Silahkan Check-in</p>
                             <form action="{{ route('kehadiran.check-in') }}" method="post">
                                 @csrf

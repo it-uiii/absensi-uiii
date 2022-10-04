@@ -19,7 +19,7 @@ class PresentsController extends Controller
      */
     public function index(Request $request)
     {
-        $presents = Present::whereTanggal(date('Y-m-d'))->orderBy('jam_masuk', 'desc')->paginate(20);
+        $presents = Present::whereTanggal(date('Y-m-d'))->orderBy('jam_masuk', 'desc')->paginate(60);
         $masuk = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('masuk')->count();
         $telat = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('telat')->count();
         $cuti = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('cuti')->count();
@@ -31,17 +31,17 @@ class PresentsController extends Controller
 
     public function reports()
     {
-        $presents = Present::whereBetween('tanggal', [request('tanggal_awal', date('Y-m-d',strtotime('-1 months'))), request('tanggal_akhir', date('Y-m-d',strtotime('now')))])
+        $presents = Present::whereBetween('tanggal', [request('tanggal_awal', date('Y-m-d', strtotime('-1 months'))), request('tanggal_akhir', date('Y-m-d', strtotime('now')))])
             ->orderBy('tanggal')
             ->orderBy('jam_masuk')
             ->get()->groupBy('tanggal');
         $users = User::all();
-        return view('presents.reports', compact('presents','users'));
+        return view('presents.reports', compact('presents', 'users'));
     }
 
     public function reports_excel(Request $request)
     {
-        return Excel::download(new ReportExport, 'kehadiran-' . $request->tanggal_awal . ' - '. $request->tanggal_akhir .'.xlsx');
+        return Excel::download(new ReportExport, 'kehadiran-' . $request->tanggal_awal . ' - ' . $request->tanggal_akhir . '.xlsx');
     }
 
     public function search(Request $request)
