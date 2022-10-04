@@ -53,7 +53,7 @@ class UsersController extends Controller
         ]);
 
         // dd($user);
-        $password = Str::random(10);
+        $password = '123456789';
         $user['role_id'] = $request->role;
         $user['password'] = Hash::make($password);
         if ($request->file('foto')) {
