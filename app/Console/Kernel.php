@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             Present::where('keterangan', 'Masuk')->whereNull('jam_keluar')->update(['jam_keluar' => '17:00:00']);
-        })->dailyAt('19.00');
+        })->dailyAt('11.30');
     }
 
     /**
