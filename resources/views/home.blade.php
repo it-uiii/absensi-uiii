@@ -16,7 +16,7 @@
             @if ($present)
                 @if ($present->keterangan == 'Alpha')
                     <div class="text-center">
-                        @if (strtotime(date('H:i:s')) >= strtotime(config('absensi.jam_masuk') .' -2 hours') && strtotime(date('H:i:s')) <= strtotime(config('absensi.jam_pulang')))
+                        @if (strtotime(date('H:i:s')) >= strtotime(config('absensi.jam_masuk') .' -3 hours') && strtotime(date('H:i:s')) <= strtotime(config('absensi.jam_pulang')))
                             <p>Silahkan Check-in</p>
                             <form action="{{ route('kehadiran.check-in') }}" method="post">
                                 @csrf
@@ -30,6 +30,26 @@
                 @elseif($present->keterangan == 'Cuti')
                     <div class="text-center">
                         <p>Anda Sedang Cuti</p>
+                    </div>
+                @elseif($present->keterangan == 'Full Board')
+                    <div class="text-center">
+                        <p>Anda Sedang FullBoard</p>
+                    </div>
+                @elseif($present->keterangan == 'Dinas Luar (Perjadin)')
+                    <div class="text-center">
+                        <p>Anda Sedang Dinas Luar (Perjadin)</p>
+                    </div>
+                @elseif($present->keterangan == 'Full Day')
+                    <div class="text-center">
+                        <p>Anda Sedang FullDay</p>
+                    </div>
+                @elseif($present->keterangan == 'Work From Home')
+                    <div class="text-center">
+                        <p>Anda Sedang WFH</p>
+                    </div>
+                @elseif($present->keterangan == 'Sakit')
+                    <div class="text-center">
+                        <p>Anda Sedang Sakit</p>
                     </div>
                 @else
                     <div class="text-center">
@@ -59,7 +79,7 @@
                 @endif
             @else
                 <div class="text-center">
-                    @if (strtotime(date('H:i:s')) >= strtotime(config('absensi.jam_masuk') . ' -1 hours') && strtotime(date('H:i:s')) <= strtotime(config('absensi.jam_pulang')))
+                    @if (strtotime(date('H:i:s')) >= strtotime(config('absensi.jam_masuk') . ' -3 hours') && strtotime(date('H:i:s')) <= strtotime(config('absensi.jam_pulang')))
                         <p>Silahkan Check-in</p>
                         <form action="{{ route('kehadiran.check-in') }}" method="post">
                             @csrf

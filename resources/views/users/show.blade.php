@@ -246,7 +246,8 @@ Detail User - {{ config('app.name') }}
                                     <option value="Sakit" {{ old('keterangan') == 'Sakit' ? 'selected':'' }}>Sakit</option>
                                     <option value="Cuti" {{ old('keterangan') == 'Cuti' ? 'selected':'' }}>Cuti</option>
                                     <option value="Work From Home" {{ old('keterangan') == 'Work From Home' ? 'selected':'' }}>Work From Home</option>
-                                    <option value="Full Board" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Dinas Luar (Perjadin)" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Full Board" {{ old('keterangan') == 'Full Board' ? 'selected':'' }}>Full Board</option>
                                     <option value="Full Day" {{ old('keterangan') == 'Full Day' ? 'selected':'' }}>Full Day</option>
                                     <option value="Izin" {{ old('keterangan') == 'Izin' ? 'selected':'' }}>Izin</option>
                                 </select>
@@ -295,7 +296,8 @@ Detail User - {{ config('app.name') }}
                                     <option value="Sakit" {{ old('keterangan') == 'Sakit' ? 'selected':'' }}>Sakit</option>
                                     <option value="Cuti" {{ old('keterangan') == 'Cuti' ? 'selected':'' }}>Cuti</option>
                                     <option value="Work From Home" {{ old('keterangan') == 'Work From Home' ? 'selected':'' }}>Work From Home</option>
-                                    <option value="Full Board" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Dinas Luar (Perjadin)" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Full Board" {{ old('keterangan') == 'Full Board' ? 'selected':'' }}>Full Board</option>
                                     <option value="Full Day" {{ old('keterangan') == 'Full Day' ? 'selected':'' }}>Full Day</option>
                                     <option value="Izin" {{ old('keterangan') == 'Izin' ? 'selected':'' }}>Izin</option>
                                 </select>
@@ -332,7 +334,11 @@ Detail User - {{ config('app.name') }}
         $(document).ready(function(){
             $('#jamMasuk').hide();
             $('#keterangan').on('change',function(){
-                if ($(this).val() == 'Masuk' || $(this).val() == 'Telat') {
+                if ($(this).val() == 'Masuk' || $(this).val() == 'Masuk') {
+                    $('#jamMasuk').show();
+                } else {
+                    $('#jamMasuk').hide();
+                } else if ($(this).val() == 'Telat' || $(this).val() == 'Telat') {
                     $('#jamMasuk').show();
                 } else {
                     $('#jamMasuk').hide();
