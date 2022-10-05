@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            Present::where('keterangan', 'Masuk')->whereNull('jam_keluar')->update(['jam_keluar' => '17:00:00']);
+            Present::whereIn("keterangan", ['masuk', 'telat'])->whereNull('jam_keluar')->update(['jam_keluar' => '17:00:00']);
         })->dailyAt('23.30');
     }
 
