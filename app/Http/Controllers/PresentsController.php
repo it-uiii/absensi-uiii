@@ -132,7 +132,7 @@ class PresentsController extends Controller
             }
         }
 
-        if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -1 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
+        if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -3 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
             $data['keterangan'] = 'Masuk';
         } else if (strtotime($data['jam_masuk']) > strtotime(config('absensi.jam_masuk')) && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_pulang'))) {
             $data['keterangan'] = 'Telat';
@@ -180,7 +180,7 @@ class PresentsController extends Controller
         $data['tanggal'] = date('Y-m-d');
         if ($request->keterangan == 'Masuk' || $request->keterangan == 'Telat') {
             $data['jam_masuk'] = $request->jam_masuk;
-            if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -1 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
+            if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -3 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
                 $data['keterangan'] = 'Masuk';
             } else if (strtotime($data['jam_masuk']) > strtotime(config('absensi.jam_masuk')) && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_pulang'))) {
                 $data['keterangan'] = 'Telat';
@@ -232,7 +232,7 @@ class PresentsController extends Controller
 
         if ($request->keterangan == 'Masuk' || $request->keterangan == 'Telat') {
             $data['jam_masuk'] = $request->jam_masuk;
-            if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -1 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
+            if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -3 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
                 $data['keterangan'] = 'Masuk';
             } else if (strtotime($data['jam_masuk']) > strtotime(config('absensi.jam_masuk')) && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_pulang'))) {
                 $data['keterangan'] = 'Telat';
