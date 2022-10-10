@@ -202,7 +202,7 @@ Detail User - {{ config('app.name') }}
                                                     <td>-</td>
                                                 @endif
                                                 <td>
-                                                    <button id="btnUbahKehadiran" data-id="{{ $present->id }}" type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ubahKehadiran">
+                                                    <button data-id="{{ $present->id }}" type="button" class="btnUbahKehadiran btn btn-sm btn-success" data-toggle="modal" data-target="#ubahKehadiran" title="edit">
                                                         <i class="far fa-edit"></i>
                                                     </button>
                                                 </td>
@@ -334,17 +334,13 @@ Detail User - {{ config('app.name') }}
         $(document).ready(function(){
             $('#jamMasuk').hide();
             $('#keterangan').on('change',function(){
-                if ($(this).val() == 'Masuk' || $(this).val() == 'Masuk') {
-                    $('#jamMasuk').show();
-                } else {
-                    $('#jamMasuk').hide();
-                } else if ($(this).val() == 'Telat' || $(this).val() == 'Telat') {
+                if ($(this).val() == 'Masuk' || $(this).val() == 'Telat') {
                     $('#jamMasuk').show();
                 } else {
                     $('#jamMasuk').hide();
                 }
             });
-            $('#btnUbahKehadiran').on('click',function(){
+            $('.btnUbahKehadiran').on('click',function(){
                 const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 const id = $(this).data('id');
                 $('#formUbahKehadiran').attr('action', "{{ url('kehadiran') }}/" + id);
