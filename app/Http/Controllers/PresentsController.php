@@ -49,7 +49,7 @@ class PresentsController extends Controller
         $request->validate([
             'tanggal' => ['required']
         ]);
-        $presents = Present::whereTanggal($request->tanggal)->orderBy('jam_masuk', 'desc')->paginate(6);
+        $presents = Present::whereTanggal($request->tanggal)->orderBy('jam_masuk', 'desc')->paginate(60);
         $masuk = Present::whereTanggal($request->tanggal)->whereKeterangan('masuk')->count();
         $telat = Present::whereTanggal($request->tanggal)->whereKeterangan('telat')->count();
         $cuti = Present::whereTanggal($request->tanggal)->whereKeterangan('cuti')->count();
@@ -65,7 +65,7 @@ class PresentsController extends Controller
             'bulan' => ['required']
         ]);
         $data = explode('-', $request->bulan);
-        $presents = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->orderBy('tanggal', 'desc')->paginate(5);
+        $presents = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->orderBy('tanggal', 'desc')->paginate(60);
         $masuk = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->whereKeterangan('masuk')->count();
         $telat = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->whereKeterangan('telat')->count();
         $cuti = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->whereKeterangan('cuti')->count();
