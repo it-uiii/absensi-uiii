@@ -62,14 +62,16 @@
                             @if (strtotime('now') >= strtotime(config('absensi.jam_pulang')))
                                 <p>Jika pekerjaan telah selesai silahkan check-out</p>
                                 <form action="{{ route('kehadiran.check-out', ['kehadiran' => $present]) }}" method="post">
-                                    @csrf @method('patch')
-                                    <button class="btn btn-primary" type="submit">Check-out</button>
+                                    @csrf
+                                    <input name="_method" type="hidden" value="patch">
+                                    <button type="submit" class="btn btn-primary show_confirm" data-toggle="tooltip">check-out</button>
                                 </form>
                             @elseif ((\Carbon\Carbon::parse($present->jam_masuk)->diffInMinutes(\Carbon\Carbon::parse(date('H:i:s')))) >= 1)
                                 <p>Jika pekerjaan telah selesai silahkan check-out</p>
                                 <form action="{{ route('kehadiran.check-out', ['kehadiran' => $present]) }}" method="post">
-                                    @csrf @method('patch')
-                                    <button class="btn btn-primary" type="submit">Check-out</button>
+                                    @csrf
+                                    <input name="_method" type="hidden" value="patch">
+                                    <button type="submit" class="btn btn-primary show_confirm" data-toggle="tooltip">check-out</button>
                                 </form>
                             @else
                                 <p>Check-out Belum Tersedia</p>
@@ -93,4 +95,23 @@
             @endif
         @endif
     @endif
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $('.show_confirm').click(function(event) {
+        var form =  $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        swal({
+            title: "Are you sure checkout?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((confirm) => {
+        if (confirm) {
+            form.submit();
+        }
+        });
+    });
+</script>
 @endsection
