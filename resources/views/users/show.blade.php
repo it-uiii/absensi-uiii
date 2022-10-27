@@ -98,7 +98,7 @@ Detail User - {{ config('app.name') }}
                 <a href="{{ route('users.index') }}" class="btn btn-sm btn-secondary float-right">Kembali</a>
             </div>
             <div class="card-body">
-                <img src="{{ asset(Storage::url($user->foto)) }}" class="card-img mb-3" alt="{{ $user->foto }}">
+                <img src="{{ asset(Storage::url($user->foto)) }}" class="card-img mb-3" alt="{{ $user->foto }}" style="max-width: 150px;">
                 <div class="table-responsive">
                     <table class="table table-sm">
                         <tbody>
