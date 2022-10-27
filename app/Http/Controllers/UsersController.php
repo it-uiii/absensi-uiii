@@ -74,7 +74,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        $presents = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->orderBy('tanggal', 'desc')->paginate(30);
+        $presents = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->orderBy('tanggal', 'desc')->paginate(20);
         $masuk = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('masuk')->count();
         $telat = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('telat')->count();
         $cuti = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('cuti')->count();
