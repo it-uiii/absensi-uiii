@@ -150,7 +150,7 @@ class PresentsController extends Controller
             }
         }
 
-        activity()->log('CheckIn IP:' . request()->ip() . ' ' . request()->userAgent());
+        activity()->log('CheckIn IP:' . request()->ip() . ' ' . request()->userAgent() . '<br>' . 'oleh user:' . auth()->user()->name);
         Present::create($data);
         return redirect()->back()->with('success', 'Check-in berhasil');
     }
@@ -158,7 +158,7 @@ class PresentsController extends Controller
     public function checkOut(Request $request, Present $kehadiran)
     {
         $data['jam_keluar'] = date('H:i:s');
-        activity()->log('CheckOut IP:' . request()->ip() . ' ' . request()->userAgent());
+        activity()->log('CheckOut IP:' . request()->ip() . ' ' . request()->userAgent() . '<br>' . 'oleh user:' . auth()->user()->name);
         $kehadiran->update($data);
         return redirect()->back()->with('success', 'Check-out berhasil');
     }
@@ -191,7 +191,7 @@ class PresentsController extends Controller
             }
         }
 
-        activity()->log('Created kehadiran IP:' . request()->ip() . ' ' . request()->userAgent());
+        activity()->log('Created kehadiran IP:' . request()->ip() . ' ' . request()->userAgent() . '<br>' . 'oleh user:' . auth()->user()->name);
         Present::create($data);
         return redirect()->back()->with('success', 'Kehadiran berhasil ditambahkan');
     }
@@ -248,18 +248,20 @@ class PresentsController extends Controller
             $data['jam_keluar'] = null;
         }
 
-        activity()->log('Updated kehadiran IP:' . request()->ip() . ' ' . request()->userAgent());
+        activity()->log('Updated kehadiran IP:' . request()->ip() . ' ' . request()->userAgent() . '<br>' . 'oleh user:' . auth()->user()->name);
         $kehadiran->update($data);
         return redirect()->back()->with('success', 'Kehadiran tanggal "' . date('l, d F Y', strtotime($kehadiran->tanggal)) . '" berhasil diubah');
     }
 
     public function excelUser(Request $request, User $user)
     {
+        activity()->log('Downloaded IP:' . request()->ip() . ' ' . request()->userAgent() . '<br>' . 'oleh user:' . auth()->user()->name);
         return Excel::download(new PresentExport($user->id, $request->bulan), 'kehadiran-' . $user->nrp . '-' . $request->bulan . '.xlsx');
     }
 
     public function excelUsers(Request $request)
     {
+        activity()->log('Downloaded IP:' . request()->ip() . ' ' . request()->userAgent() . '<br>' . 'oleh user:' . auth()->user()->name);
         return Excel::download(new UsersPresentExport($request->tanggal), 'kehadiran-' . $request->tanggal . '.xlsx');
     }
 }
