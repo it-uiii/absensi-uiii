@@ -19,7 +19,7 @@
             @php
                 $total_jam_kerja = 0;
                 $total_kehadiran = 0;
-                $uang_makan_per_hari = 40000;
+                $uang_makan_per_hari = 50000;
                 $uang_makan_harian_yang_diterima = 0;
             @endphp
             <tr>
@@ -40,7 +40,7 @@
                 @endforeach
                 {{-- <td class="text-right">{{ $total_jam_kerja }}</td> --}}
                 <td class="text-right">{{ $total_kehadiran }}</td>
-                <td class="text-right">40.000</td>
+                <td class="text-right">{{ $uang_makan_per_hari }}</td>
                 <td class="text-right">{{ number_format($uang_makan_harian_yang_diterima, 0, ',', '.') }}</td>
             </tr>
         @endforeach
