@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Present');
     }
+
+    public function activity()
+    {
+        return $this->hasMany('Spatie\Activitylog\Models\Activity');
+    }
 }

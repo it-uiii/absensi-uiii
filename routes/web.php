@@ -51,6 +51,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'Pegawai'], function () {
         Route::get('/daftar-hadir', 'PresentsController@show')->name('daftar-hadir');
         Route::get('/daftar-hadir/cari', 'PresentsController@cariDaftarHadir')->name('daftar-hadir.cari');
+        Route::get('/log', 'ActivityLog@index')->name('log.index');
     });
 
     // ATUR IP ADDRESS DISINI
