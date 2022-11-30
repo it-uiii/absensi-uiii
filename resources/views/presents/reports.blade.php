@@ -71,7 +71,7 @@ Laporan - {{ config('app.name') }}
                                     <td>{{ $user->role->role }}</td>
                                     @foreach ($presents as $key => $present)
                                         @if ($present->where('user_id', $user->id))
-                                            <td class="text-center">{{ $present->where('user_id', $user->id)->first()->ket }}</td>
+                                            <td class="text-center">{{ $present->where('user_id', $user->id)->first()->keterangan }}</td>
                                             @php
                                                 $keterangan = $present->where('user_id', $user->id)->first()->keterangan;
                                                 $total_jam_kerja += $present->where('user_id', $user->id)->first()->jam_kerja;
