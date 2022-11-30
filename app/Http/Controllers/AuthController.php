@@ -19,11 +19,13 @@ class AuthController extends Controller
             'password'  => ['required']
         ]);
 
+        activity()->log('IP:' . request()->ip() . ' ' . request()->userAgent());
         return redirect('/home');
     }
 
     public function logout()
     {
+        activity()->log('IP:' . request()->ip() . ' ' . request()->userAgent());
         auth()->logout();
         return redirect()->route('login');
     }
