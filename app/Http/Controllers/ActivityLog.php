@@ -9,7 +9,7 @@ class ActivityLog extends Controller
 {
     public function index()
     {
-        $logs = Activity::paginate(20);
+        $logs = Activity::orderBy('created_at', 'desc')->paginate(20);
         return view('log.index', compact('logs'));
     }
 }
