@@ -192,23 +192,27 @@ Detail User - {{ config('app.name') }}
                                                         {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
                                                     @endif
                                                 @endif
-                                            </td>
-                                        @else
-                                            <td>-</td>
-                                            <td>-</td>
-                                        @endif
-                                        <td>
-                                            <button data-id="{{ $present->id }}" type="button" class="btnUbahKehadiran btn btn-sm btn-success" data-toggle="modal" data-target="#ubahKehadiran" title="edit">
-                                                <i class="far fa-edit"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                    <div class="float-right">
-                        {{ $presents->links('layouts.pagination') }}
+                                                @if($present->jam_keluar)
+                                                    <td>{{ date('H:i:s', strtotime($present->jam_keluar)) }}</td>
+                                                    <td>{{ $present->jam_kerja }}</td>
+                                                @else
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                @endif
+                                                <td>
+                                                    <button id="btnUbahKehadiran" data-id="{{ $present->id }}" type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ubahKehadiran">
+                                                        <i class="far fa-edit"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                            <div class="float-right">
+                                {{ $presents->links('layouts.pagination') }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
