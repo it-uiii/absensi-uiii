@@ -19,7 +19,7 @@ class PresentsController extends Controller
      */
     public function index(Request $request)
     {
-        $presents = Present::whereTanggal(date('Y-m-d'))->orderBy('jam_masuk', 'desc')->paginate(20);
+        $presents = Present::whereTanggal(date('Y-m-d'))->orderBy('jam_masuk', 'desc')->paginate(60);
         $masuk = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('masuk')->count();
         $telat = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('telat')->count();
         $cuti = Present::whereTanggal(date('Y-m-d'))->whereKeterangan('cuti')->count();
@@ -31,17 +31,17 @@ class PresentsController extends Controller
 
     public function reports()
     {
-        $presents = Present::whereBetween('tanggal', [request('tanggal_awal', date('Y-m-d',strtotime('-1 months'))), request('tanggal_akhir', date('Y-m-d',strtotime('now')))])
+        $presents = Present::whereBetween('tanggal', [request('tanggal_awal', date('Y-m-d', strtotime('-1 months'))), request('tanggal_akhir', date('Y-m-d', strtotime('now')))])
             ->orderBy('tanggal')
             ->orderBy('jam_masuk')
             ->get()->groupBy('tanggal');
         $users = User::all();
-        return view('presents.reports', compact('presents','users'));
+        return view('presents.reports', compact('presents', 'users'));
     }
 
     public function reports_excel(Request $request)
     {
-        return Excel::download(new ReportExport, 'kehadiran-' . $request->tanggal_awal . ' - '. $request->tanggal_akhir .'.xlsx');
+        return Excel::download(new ReportExport, 'kehadiran-' . $request->tanggal_awal . ' - ' . $request->tanggal_akhir . '.xlsx');
     }
 
     public function search(Request $request)
@@ -49,7 +49,7 @@ class PresentsController extends Controller
         $request->validate([
             'tanggal' => ['required']
         ]);
-        $presents = Present::whereTanggal($request->tanggal)->orderBy('jam_masuk', 'desc')->paginate(6);
+        $presents = Present::whereTanggal($request->tanggal)->orderBy('jam_masuk', 'desc')->paginate(60);
         $masuk = Present::whereTanggal($request->tanggal)->whereKeterangan('masuk')->count();
         $telat = Present::whereTanggal($request->tanggal)->whereKeterangan('telat')->count();
         $cuti = Present::whereTanggal($request->tanggal)->whereKeterangan('cuti')->count();
@@ -65,7 +65,7 @@ class PresentsController extends Controller
             'bulan' => ['required']
         ]);
         $data = explode('-', $request->bulan);
-        $presents = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->orderBy('tanggal', 'desc')->paginate(5);
+        $presents = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->orderBy('tanggal', 'desc')->paginate(60);
         $masuk = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->whereKeterangan('masuk')->count();
         $telat = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->whereKeterangan('telat')->count();
         $cuti = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->whereKeterangan('cuti')->count();
@@ -73,7 +73,7 @@ class PresentsController extends Controller
         $kehadiran = Present::whereUserId($user->id)->whereMonth('tanggal', $data[1])->whereYear('tanggal', $data[0])->whereKeterangan('telat')->get();
         $totalJamTelat = 0;
         foreach ($kehadiran as $present) {
-            $totalJamTelat = $totalJamTelat + (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse(config('absensi.jam_masuk') . ' -1 hours')));
+            $totalJamTelat = $totalJamTelat + (\Carbon\Carbon::parse($present->jam_masuk)->diffInMinutes(\Carbon\Carbon::parse(config('absensi.jam_masuk') . ' -3 hours')) * 60);
         }
         $url = 'https://kalenderindonesia.com/api/YZ35u6a7sFWN/libur/masehi/' . date('Y/m');
         $kalender = file_get_contents($url);
@@ -132,7 +132,7 @@ class PresentsController extends Controller
             }
         }
 
-        if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -1 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
+        if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -3 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
             $data['keterangan'] = 'Masuk';
         } else if (strtotime($data['jam_masuk']) > strtotime(config('absensi.jam_masuk')) && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_pulang'))) {
             $data['keterangan'] = 'Telat';
@@ -180,7 +180,7 @@ class PresentsController extends Controller
         $data['tanggal'] = date('Y-m-d');
         if ($request->keterangan == 'Masuk' || $request->keterangan == 'Telat') {
             $data['jam_masuk'] = $request->jam_masuk;
-            if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -1 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
+            if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -3 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
                 $data['keterangan'] = 'Masuk';
             } else if (strtotime($data['jam_masuk']) > strtotime(config('absensi.jam_masuk')) && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_pulang'))) {
                 $data['keterangan'] = 'Telat';
@@ -232,7 +232,7 @@ class PresentsController extends Controller
 
         if ($request->keterangan == 'Masuk' || $request->keterangan == 'Telat') {
             $data['jam_masuk'] = $request->jam_masuk;
-            if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -1 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
+            if (strtotime($data['jam_masuk']) >= strtotime(config('absensi.jam_masuk') . ' -3 hours') && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_masuk'))) {
                 $data['keterangan'] = 'Masuk';
             } else if (strtotime($data['jam_masuk']) > strtotime(config('absensi.jam_masuk')) && strtotime($data['jam_masuk']) <= strtotime(config('absensi.jam_pulang'))) {
                 $data['keterangan'] = 'Telat';

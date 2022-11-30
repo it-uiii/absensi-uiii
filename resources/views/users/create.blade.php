@@ -41,6 +41,13 @@ Tambah User - {{ config('app.name') }}
                             </div>
                         </div>
                         <div class="form-group row">
+                            <div class="col-sm-2"><label for="jabatan" class="float-right col-form-label">Jabatan</label></div>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('jabatan') is-invalid @enderror" id="jabatan" name="jabatan" value="{{ old('jabatan') }}">
+                                @error('jabatan') <span class="invalid-feedback" role="alert">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <div class="col-sm-2"><label for="role" class="float-right col-form-label">Sebagai</label></div>
                             <div class="col-sm-10">
                                 <select class="form-control @error('role') is-invalid @enderror" name="role" id="role">

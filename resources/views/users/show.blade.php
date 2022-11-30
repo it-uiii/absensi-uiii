@@ -92,96 +92,105 @@ Detail User - {{ config('app.name') }}
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-5 mb-3">
-                <div class="card shadow h-100">
-                    <div class="card-header">
-                        <h5 class="m-0 pt-1 font-weight-bold float-left">Detail User</h5>
-                        <a href="{{ route('users.index') }}" class="btn btn-sm btn-secondary float-right">Kembali</a>
-                    </div>
-                    <div class="card-body">
-                        <img src="{{ asset(Storage::url($user->foto)) }}" class="card-img mb-3" alt="{{ $user->foto }}">
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <tbody>
-                                    <tr><td>NRP</td><td>: {{ $user->nrp }}</td></tr>
-                                    <tr><td>Nama</td><td>: {{ $user->nama }}</td></tr>
-                                    <tr><td>Sebagai</td><td>: {{ $user->role->role }}</td></tr>
-                                </tbody>
-                            </table>
-                            <div class="float-right">
-                                <a href="{{ route('users.edit',$user) }}" class="btn btn-sm btn-success" title="Ubah"><i class="fas fa-edit"></i></a>
-                                @if ($user->id != auth()->user()->id)
-                                    <form class="d-inline-block" action="{{ route('users.destroy',$user) }}" method="post">
-                                        @csrf @method('delete')
-                                        <button type="submit" class="btn btn-sm btn-danger" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus user ini ???')"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                @endif
-                                <form class="d-inline-block" action="{{ route('users.password',$user) }}" method="post">
-                                    @csrf @method('patch')
-                                    <button type="submit" class="btn btn-sm btn-dark" onclick="return confirm('Apakah anda yakin ingin mereset password user ini ???')">Reset Password</button>
-                                </form>
-                            </div>
-                        </div>
+        <div class="card shadow h-100 mb-3">
+            <div class="card-header">
+                <h5 class="m-0 pt-1 font-weight-bold float-left">Detail User</h5>
+                <a href="{{ route('users.index') }}" class="btn btn-sm btn-secondary float-right">Kembali</a>
+            </div>
+            <div class="card-body">
+                <img src="{{ asset(Storage::url($user->foto)) }}" class="card-img mb-3" alt="{{ $user->foto }}" style="max-width: 150px;">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr><td>NRP</td><td>: {{ $user->nrp }}</td></tr>
+                            <tr><td>Nama</td><td>: {{ $user->nama }}</td></tr>
+                            <tr><td>Jabatan</td><td>: {{ $user->jabatan }}</td></tr>
+                            <tr><td>Sebagai</td><td>: {{ $user->role->role }}</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="float-right">
+                        <a href="{{ route('users.edit',$user) }}" class="btn btn-sm btn-success" title="Ubah"><i class="fas fa-edit"></i></a>
+                        @if ($user->id != auth()->user()->id)
+                            <form class="d-inline-block" action="{{ route('users.destroy',$user) }}" method="post">
+                                @csrf @method('delete')
+                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus user ini ???')"><i class="fas fa-trash"></i></button>
+                            </form>
+                        @endif
+                        <form class="d-inline-block" action="{{ route('users.password',$user) }}" method="post">
+                            @csrf @method('patch')
+                            <button type="submit" class="btn btn-sm btn-dark" onclick="return confirm('Apakah anda yakin ingin mereset password user ini ???')">Reset Password</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-7 mb-3">
-                <div class="card shadow h-100">
-                    <div class="card-header">
-                        <h5 class="m-0 pt-1 font-weight-bold float-left">Kehadiran</h5>
-                        @if ($libur == false)
-                            @if (date('l') != 'Saturday' && date('l') != 'Sunday')
-                                <button title="Tambah Kehadiran" type="button" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#kehadiran">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            @endif
-                        @endif
-                        <form class="float-right d-inline-block" action="{{ route('kehadiran.excel-user',$user) }}" method="get">
-                            <input type="hidden" name="bulan" value="{{ request('bulan',date('Y-m')) }}">
-                            <button title="Download" type="submit" class="btn btn-sm btn-success">
-                                <i class="fas fa-download"></i>
-                            </button>
-                        </form>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('kehadiran.cari', ['user' => $user]) }}" class="mb-3" method="get">
-                            <div class="form-group row mb-3 ">
-                                <label for="bulan" class="col-form-label col-sm-2">Bulan</label>
-                                <div class="input-group col-sm-10">
-                                    <input type="month" class="form-control" name="bulan" id="bulan" value="{{ request('bulan',date('Y-m')) }}">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-primary" type="submit">Cari</button>
-                                    </div>
-                                </div>
+        </div>   
+        <div class="card shadow h-100 mb-3">
+            <div class="card-header">
+                <h5 class="m-0 pt-1 font-weight-bold float-left">Kehadiran</h5>
+                @if ($libur == false)
+                    @if (date('l') != 'Saturday' && date('l') != 'Sunday')
+                        <button title="Tambah Kehadiran" type="button" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#kehadiran">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    @endif
+                @endif
+                <form class="float-right d-inline-block" action="{{ route('kehadiran.excel-user',$user) }}" method="get">
+                    <input type="hidden" name="bulan" value="{{ request('bulan',date('Y-m')) }}">
+                    <button title="Download" type="submit" class="btn btn-sm btn-success">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('kehadiran.cari', ['user' => $user]) }}" class="mb-3" method="get">
+                    <div class="form-group row mb-3 ">
+                        <label for="bulan" class="col-form-label col-sm-2">Bulan</label>
+                        <div class="input-group col-sm-10">
+                            <input type="month" class="form-control" name="bulan" id="bulan" value="{{ request('bulan',date('Y-m')) }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit">Cari</button>
                             </div>
-                        </form>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
+                        </div>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Keterangan</th>
+                                <th>Jam Masuk</th>
+                                <th>Jam Keluar</th>
+                                <th>Total Jam</th>
+                                <th>Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (!$presents->count())
+                                <tr>
+                                    <td colspan="6" class="text-center">Tidak ada data yang tersedia</td>
+                                </tr>
+                            @else
+                                @foreach ($presents as $present)
                                     <tr>
-                                        <th>Tanggal</th>
-                                        <th>Keterangan</th>
-                                        <th>Jam Masuk</th>
-                                        <th>Jam Keluar</th>
-                                        <th>Total Jam</th>
-                                        <th>Opsi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (!$presents->count())
-                                        <tr>
-                                            <td colspan="6" class="text-center">Tidak ada data yang tersedia</td>
-                                        </tr>
-                                    @else
-                                        @foreach ($presents as $present)
-                                            <tr>
-                                                <td>{{ date('d/m/Y', strtotime($present->tanggal)) }}</td>
-                                                <td>{{ $present->keterangan }}</td>
-                                                @if ($present->jam_masuk)
-                                                    <td>{{ date('H:i:s', strtotime($present->jam_masuk)) }}</td>
+                                        <td>{{ date('d/m/Y', strtotime($present->tanggal)) }}</td>
+                                        <td>{{ $present->keterangan }}</td>
+                                        @if ($present->jam_masuk)
+                                            <td>{{ date('H:i:s', strtotime($present->jam_masuk)) }}</td>
+                                        @else
+                                            <td>-</td>
+                                        @endif
+                                        @if($present->jam_keluar)
+                                            <td>{{ date('H:i:s', strtotime($present->jam_keluar)) }}</td>
+                                            <td>
+                                                @if (strtotime($present->jam_keluar) <= strtotime($present->jam_masuk))
+                                                    {{ 21 - (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) }}
                                                 @else
-                                                    <td>-</td>
+                                                    @if (strtotime($present->jam_keluar) >= strtotime(config('absensi.jam_pulang') . ' +2 hours'))
+                                                        {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 3 }}
+                                                    @else
+                                                        {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
+                                                    @endif
                                                 @endif
                                                 @if($present->jam_keluar)
                                                     <td>{{ date('H:i:s', strtotime($present->jam_keluar)) }}</td>
@@ -235,7 +244,8 @@ Detail User - {{ config('app.name') }}
                                     <option value="Sakit" {{ old('keterangan') == 'Sakit' ? 'selected':'' }}>Sakit</option>
                                     <option value="Cuti" {{ old('keterangan') == 'Cuti' ? 'selected':'' }}>Cuti</option>
                                     <option value="Work From Home" {{ old('keterangan') == 'Work From Home' ? 'selected':'' }}>Work From Home</option>
-                                    <option value="Full Board" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Dinas Luar (Perjadin)" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Full Board" {{ old('keterangan') == 'Full Board' ? 'selected':'' }}>Full Board</option>
                                     <option value="Full Day" {{ old('keterangan') == 'Full Day' ? 'selected':'' }}>Full Day</option>
                                     <option value="Izin" {{ old('keterangan') == 'Izin' ? 'selected':'' }}>Izin</option>
                                 </select>
@@ -284,7 +294,8 @@ Detail User - {{ config('app.name') }}
                                     <option value="Sakit" {{ old('keterangan') == 'Sakit' ? 'selected':'' }}>Sakit</option>
                                     <option value="Cuti" {{ old('keterangan') == 'Cuti' ? 'selected':'' }}>Cuti</option>
                                     <option value="Work From Home" {{ old('keterangan') == 'Work From Home' ? 'selected':'' }}>Work From Home</option>
-                                    <option value="Full Board" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Dinas Luar (Perjadin)" {{ old('keterangan') == 'Dinas Luar (Perjadin)' ? 'selected':'' }}>Dinas Luar (Perjadin)</option>
+                                    <option value="Full Board" {{ old('keterangan') == 'Full Board' ? 'selected':'' }}>Full Board</option>
                                     <option value="Full Day" {{ old('keterangan') == 'Full Day' ? 'selected':'' }}>Full Day</option>
                                     <option value="Izin" {{ old('keterangan') == 'Izin' ? 'selected':'' }}>Izin</option>
                                 </select>
@@ -327,7 +338,7 @@ Detail User - {{ config('app.name') }}
                     $('#jamMasuk').hide();
                 }
             });
-            $('#btnUbahKehadiran').on('click',function(){
+            $('.btnUbahKehadiran').on('click',function(){
                 const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 const id = $(this).data('id');
                 $('#formUbahKehadiran').attr('action', "{{ url('kehadiran') }}/" + id);
