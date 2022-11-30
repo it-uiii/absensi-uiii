@@ -56,8 +56,8 @@ Logs - {{ config('app.name') }}
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $result->log_name }}</td>
                                 <td>{{ $result->description }}</td>
-                                {{-- <td>{{ $result->user->nama }}</td> --}}
-                                <td>{{ $result->causer_id }}</td>
+                                <td>{{ $result->user->nama }}</td>
+                                {{-- <td>{{ $result->causer_id }}</td> --}}
                                 <td>{{ $result->created_at }}</td>
                                 <td>{{ $result->updated_at }}</td>
                             </tr>
