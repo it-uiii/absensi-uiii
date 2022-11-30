@@ -70,7 +70,7 @@ Laporan - {{ config('app.name') }}
                                     <td>{{ $user->nama }}</td>
                                     <td>{{ $user->role->role }}</td>
                                     @foreach ($presents as $key => $present)
-                                        @if ($present->where('user_id', $user->id))
+                                        @if (count($present->where('user_id', $user->id)) > 0)
                                             <td class="text-center">{{ $present->where('user_id', $user->id)->first()->ket }}</td>
                                             @php
                                                 $keterangan = $present->where('user_id', $user->id)->first()->keterangan;
