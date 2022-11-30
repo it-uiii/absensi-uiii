@@ -5,8 +5,11 @@ namespace App\Exports;
 use App\Present;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 
-class PresentExport implements FromView
+class PresentExport implements FromView, WithCustomValueBinder, ShouldAutoSize
 {
 
     private $user_id, $bulan;
@@ -15,6 +18,12 @@ class PresentExport implements FromView
     {
         $this->user_id = $user_id;
         $this->bulan = $bulan;
+    }
+
+    public function bindValue(Cell $cell, $value)
+    {
+        $cell->setValueExplicit($value, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        return true;
     }
 
     public function view(): View
