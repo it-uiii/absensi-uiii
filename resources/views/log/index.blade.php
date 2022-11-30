@@ -58,11 +58,11 @@ Logs - {{ config('app.name') }}
                                 <td>{{ $result->description }}</td>
                                 <td>
                                     @if (empty($result->user->nama))
-                                <td>{{ $result->causer_id }}</td>        
+                                    {{ $result->causer_id }}
                                     @else
-                                <td>{{ $result->user->nama }}</td>
+                                    {{ $result->user->nama }}
                                     @endif
-                                </td>
+                                </>
                                 
                                 <td>{{ $result->created_at }}</td>
                                 <td>{{ $result->updated_at }}</td>
