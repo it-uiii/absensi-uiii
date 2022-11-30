@@ -9,7 +9,7 @@
                 <th>{{ date('d-m-Y', strtotime($key)) }}</th>
             @endforeach
             <th>Total Jam Kerja</th>
-            <th>Total Kehadiran</th>
+            {{-- <th>Total Kehadiran</th> --}}
             <th>Uang Makan per Hari</th>
             <th>Uang Makan Harian yang Diterima</th>
         </tr>
@@ -38,7 +38,7 @@
                         @endphp
                     @endif
                 @endforeach
-                <td class="text-right">{{ $total_jam_kerja }}</td>
+                {{-- <td class="text-right">{{ $total_jam_kerja }}</td> --}}
                 <td class="text-right">{{ $total_kehadiran }}</td>
                 <td class="text-right">40.000</td>
                 <td class="text-right">{{ number_format($uang_makan_harian_yang_diterima, 0, ',', '.') }}</td>

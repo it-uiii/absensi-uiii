@@ -46,11 +46,14 @@ class UsersController extends Controller
     {
         $user = $request->validate([
             'nama'  => ['required', 'max:32', 'string'],
-            'nrp'   => ['required', 'digits:9', 'unique:users'],
+            'nrp'   => ['required', 'digits:14', 'unique:users'],
             'role'  => ['required', 'numeric'],
-            'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:2048']
+            'jabatan' => ['required'],
+            'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:5048']
         ]);
-        $password = Str::random(10);
+
+        // dd($user);
+        $password = '123456789';
         $user['role_id'] = $request->role;
         $user['password'] = Hash::make($password);
         if ($request->file('foto')) {
@@ -58,7 +61,7 @@ class UsersController extends Controller
         } else {
             $user['foto'] = 'default.jpg';
         }
-
+        // dd($user);
         User::create($user);
         return redirect('/users')->with('success', 'User berhasil ditambahkan, password = ' . $password);
     }
@@ -71,7 +74,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        $presents = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->orderBy('tanggal', 'desc')->paginate(5);
+        $presents = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->orderBy('tanggal', 'desc')->paginate(40);
         $masuk = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('masuk')->count();
         $telat = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('telat')->count();
         $cuti = Present::whereUserId($user->id)->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->whereKeterangan('cuti')->count();
@@ -122,9 +125,10 @@ class UsersController extends Controller
     {
         $data = $request->validate([
             'nama'  => ['required', 'max:32', 'string'],
-            'nrp'   => ['required', 'digits:9', Rule::unique('users', 'nrp')->ignore($user)],
+            'nrp'   => ['required', 'digits:14', Rule::unique('users', 'nrp')->ignore($user)],
             'role'  => ['required', 'numeric'],
-            'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:2048']
+            'jabatan' => ['required'],
+            'foto'  => ['image', 'mimes:jpeg,png,gif', 'max:5048']
         ]);
         $data['role_id'] = $request->role;
         if ($request->file('foto')) {
@@ -211,7 +215,7 @@ class UsersController extends Controller
     {
         $request->validate([
             'nama' => ['required', 'max:32'],
-            'foto' => ['image', 'mimes:jpeg,png,gif', 'max:2048']
+            'foto' => ['image', 'mimes:jpeg,png,gif', 'max:5048']
         ]);
         $user->nama = $request->nama;
         if ($request->file('foto')) {
@@ -239,7 +243,7 @@ class UsersController extends Controller
 
     public function password(Request $request, User $user)
     {
-        $password = Hash::make('123456789');
+        $password = '123456789';
         $user->password = Hash::make($password);
         $user->save();
 

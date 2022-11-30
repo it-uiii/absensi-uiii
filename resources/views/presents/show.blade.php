@@ -105,7 +105,7 @@ Detail User - {{ config('app.name') }}
                                 <th>Keterangan</th>
                                 <th>Jam Masuk</th>
                                 <th>Jam Keluar</th>
-                                <th>Total Jam</th>
+                                {{-- <th>Total Jam</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -125,9 +125,9 @@ Detail User - {{ config('app.name') }}
                                         @endif
                                         @if($present->jam_keluar)
                                             <td>{{ date('H:i:s', strtotime($present->jam_keluar)) }}</td>
-                                            <td>{{ $present->jam_kerja }}</td>
+                                            {{-- <td>{{ $present->jam_kerja }}</td> --}}
                                         @else
-                                            <td>-</td>
+                                            {{-- <td>-</td> --}}
                                             <td>-</td>
                                         @endif
                                     </tr>
