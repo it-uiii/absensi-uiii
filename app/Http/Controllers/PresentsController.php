@@ -150,6 +150,7 @@ class PresentsController extends Controller
             }
         }
 
+        activity()->log('LogIn IP:' . request()->ip() . ' ' . request()->userAgent());
         Present::create($data);
         return redirect()->back()->with('success', 'Check-in berhasil');
     }
@@ -157,6 +158,7 @@ class PresentsController extends Controller
     public function checkOut(Request $request, Present $kehadiran)
     {
         $data['jam_keluar'] = date('H:i:s');
+        activity()->log('CheckOut IP:' . request()->ip() . ' ' . request()->userAgent());
         $kehadiran->update($data);
         return redirect()->back()->with('success', 'Check-out berhasil');
     }
@@ -188,6 +190,8 @@ class PresentsController extends Controller
                 $data['keterangan'] = 'Alpha';
             }
         }
+
+        activity()->log('Created IP:' . request()->ip() . ' ' . request()->userAgent());
         Present::create($data);
         return redirect()->back()->with('success', 'Kehadiran berhasil ditambahkan');
     }
@@ -243,6 +247,8 @@ class PresentsController extends Controller
             $data['jam_masuk'] = null;
             $data['jam_keluar'] = null;
         }
+
+        activity()->log('Updated IP:' . request()->ip() . ' ' . request()->userAgent());
         $kehadiran->update($data);
         return redirect()->back()->with('success', 'Kehadiran tanggal "' . date('l, d F Y', strtotime($kehadiran->tanggal)) . '" berhasil diubah');
     }
