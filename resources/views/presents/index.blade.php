@@ -95,6 +95,7 @@ Kehadiran - {{ config('app.name') }}
                                     <input type="date" class="form-control" name="tanggal" id="tanggal" value="{{ request('tanggal', date('Y-m-d')) }}">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-primary" type="submit">Cari</button>
+                                        <a href="{{ route('kehadiran.excel-users') }}?tanggal={{ request('tanggal', date('Y-m-d')) }}" class="btn btn-success" data-toggle="tooltip" title="Export Excel"><i class="fas fa-download"></i></a>
                                     </div>
                                 </div>
                             </div>

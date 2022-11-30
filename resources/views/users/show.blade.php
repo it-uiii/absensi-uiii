@@ -123,13 +123,13 @@ Detail User - {{ config('app.name') }}
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>
         <div class="card shadow h-100 mb-3">
             <div class="card-header">
                 <h5 class="m-0 pt-1 font-weight-bold float-left">Kehadiran</h5>
                 @if ($libur == false)
                     @if (date('l') != 'Saturday' && date('l') != 'Sunday')
-                        <button title="Tambah Kehadiran" type="button" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#kehadiran">
+                        <button title="Tambah Kehadiran" type="button" class="btn btn-sm mx-2 btn-primary float-right" data-toggle="modal" data-target="#kehadiran">
                             <i class="fas fa-plus"></i>
                         </button>
                     @endif
@@ -183,36 +183,24 @@ Detail User - {{ config('app.name') }}
                                         @if($present->jam_keluar)
                                             <td>{{ date('H:i:s', strtotime($present->jam_keluar)) }}</td>
                                             <td>
-                                                @if (strtotime($present->jam_keluar) <= strtotime($present->jam_masuk))
-                                                    {{ 21 - (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) }}
-                                                @else
-                                                    @if (strtotime($present->jam_keluar) >= strtotime(config('absensi.jam_pulang') . ' +2 hours'))
-                                                        {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 3 }}
-                                                    @else
-                                                        {{ (\Carbon\Carbon::parse($present->jam_masuk)->diffInHours(\Carbon\Carbon::parse($present->jam_keluar))) - 1 }}
-                                                    @endif
-                                                @endif
-                                                @if($present->jam_keluar)
-                                                    <td>{{ date('H:i:s', strtotime($present->jam_keluar)) }}</td>
-                                                    <td>{{ $present->jam_kerja }}</td>
-                                                @else
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                @endif
-                                                <td>
-                                                    <button id="btnUbahKehadiran" data-id="{{ $present->id }}" type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ubahKehadiran">
-                                                        <i class="far fa-edit"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
-                            <div class="float-right">
-                                {{ $presents->links('layouts.pagination') }}
-                            </div>
-                        </div>
+                                                {{ $present->jam_kerja }}
+                                            </td>
+                                        @else
+                                            <td>-</td>
+                                            <td>-</td>
+                                        @endif
+                                        <td>
+                                            <button data-id="{{ $present->id }}" type="button" class="btnUbahKehadiran btn btn-sm btn-success" data-toggle="modal" data-target="#ubahKehadiran" title="edit">
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                    <div class="float-right">
+                        {{ $presents->links('layouts.pagination') }}
                     </div>
                 </div>
             </div>
