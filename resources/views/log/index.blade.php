@@ -56,8 +56,14 @@ Logs - {{ config('app.name') }}
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $result->log_name }}</td>
                                 <td>{{ $result->description }}</td>
+                                <td>
+                                    @if (empty($result->user->nama))
+                                <td>{{ $result->causer_id }}</td>        
+                                    @else
                                 <td>{{ $result->user->nama }}</td>
-                                {{-- <td>{{ $result->causer_id }}</td> --}}
+                                    @endif
+                                </td>
+                                
                                 <td>{{ $result->created_at }}</td>
                                 <td>{{ $result->updated_at }}</td>
                             </tr>
