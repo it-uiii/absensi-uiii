@@ -13,20 +13,16 @@ Logs - {{ config('app.name') }}
     </div>
     <div class="card-body">
         <div class="row">
-            {{-- <div class="col-lg-6 mb-1">
-                <form action="{{ route('kehadiran.search') }}" method="get">
+            <div class="col-lg-6 mb-1">
+                <form action="{{ route('log.search') }}" method="get">
                     <div class="form-group row">
                         <label for="tanggal" class="col-form-label col-sm-3">Tanggal</label>
                         <div class="input-group col-sm-9">
-                            <input type="date" class="form-control" name="tanggal" id="tanggal" value="{{ request('tanggal', date('Y-m-d')) }}">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-primary" type="submit">Cari</button>
-                                <a href="{{ route('kehadiran.excel-users') }}?tanggal={{ request('tanggal', date('Y-m-d')) }}" class="btn btn-success" data-toggle="tooltip" title="Export Excel"><i class="fas fa-download"></i></a>
-                            </div>
+                            <input type="text" class="form-control" name="search">
                         </div>
                     </div>
                 </form>
-            </div> --}}
+            </div>
             <div class="col-lg-6">
                 <div class="float-right">
                     {{ $logs->links('layouts.pagination') }}
